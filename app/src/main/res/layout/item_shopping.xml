@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_11sdp">
+
+    <ImageView
+        android:id="@+id/ivShoppingImage"
+        android:layout_width="@dimen/_85sdp"
+        android:layout_height="@dimen/_85sdp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NAME"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:textSize="@dimen/_20ssp"
+        app:layout_constraintStart_toEndOf="@+id/tvShoppingItemAmount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvShoppingItemAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3x"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:textSize="@dimen/_20ssp"
+        app:layout_constraintStart_toEndOf="@+id/ivShoppingImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvShoppingItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price: 3€"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintStart_toEndOf="@+id/ivShoppingImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvShoppingItemAmount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
