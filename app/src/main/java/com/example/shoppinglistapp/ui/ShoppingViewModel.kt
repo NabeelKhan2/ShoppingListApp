@@ -5,10 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.shoppinglistapp.data.local.ShoppingItem
 import com.example.shoppinglistapp.data.remote.response.ImageResponse
 import com.example.shoppinglistapp.data.repository.ShoppingRepo
-import com.example.shoppinglistapp.utils.Constants
 import com.example.shoppinglistapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,20 +17,30 @@ class ShoppingViewModel @Inject constructor(
     private val repository: ShoppingRepo
 ) : ViewModel() {
 
-    val shoppingItems: Flow<List<ShoppingItem>> = repository.observeAllShoppingItems()
+    private val _images = MutableStateFlow<Event>(Event.Idle)
+    val images = _images.asStateFlow()
 
+    private val _curImageUrl = MutableStateFlow<String>("")
+    val curImageUrl = _curImageUrl.asStateFlow()
 
-    private val _images = MutableLiveData<Event<Resource<ImageResponse>>>()
-    val images: LiveData<Event<Resource<ImageResponse>>> = _images
+    private val _insertShoppingItemStatus = MutableStateFlow<State>(State.Idle)
+    val insertShoppingItemStatus = _insertShoppingItemStatus.asStateFlow()
 
-    private val _curImageUrl = MutableLiveData<String>()
-    val curImageUrl: LiveData<String> = _curImageUrl
+    init {
+        observerShoppingItem()
+    }
 
-    private val _insertShoppingItemStatus = MutableLiveData<Event<Resource<ShoppingItem>>>()
-    val insertShoppingItemStatus: LiveData<Event<Resource<ShoppingItem>>> = _insertShoppingItemStatus
+    private fun observerShoppingItem() {
+        viewModelScope.launch {
+            repository.observeAllShoppingItems().collect {
+                _insertShoppingItemStatus.value = State.Success(it)
+            }
+        }
+    }
+
 
     fun setCurImageUrl(url: String) {
-        _curImageUrl.postValue(url)
+        _curImageUrl.value = url
     }
 
     fun deleteShoppingItem(shoppingItem: ShoppingItem) = viewModelScope.launch {
@@ -42,41 +51,35 @@ class ShoppingViewModel @Inject constructor(
         repository.insertShoppingItem(shoppingItem)
     }
 
-    fun insertShoppingItem(name: String, amountString: String, priceString: String) {
-        if(name.isEmpty() || amountString.isEmpty() || priceString.isEmpty()) {
-            _insertShoppingItemStatus.postValue(Event(Resource.error("The fields must not be empty", null)))
-            return
-        }
-        if(name.length > Constants.MAX_NAME_LENGTH) {
-            _insertShoppingItemStatus.postValue(Event(Resource.error("The name of the item" +
-                    "must not exceed ${Constants.MAX_NAME_LENGTH} characters", null)))
-            return
-        }
-        if(priceString.length > Constants.MAX_PRICE_LENGTH) {
-            _insertShoppingItemStatus.postValue(Event(Resource.error("The price of the item" +
-                    "must not exceed ${Constants.MAX_PRICE_LENGTH} characters", null)))
-            return
-        }
-        val amount = try {
-            amountString.toInt()
-        } catch(e: Exception) {
-            _insertShoppingItemStatus.postValue(Event(Resource.error("Please enter a valid amount", null)))
-            return
-        }
-        val shoppingItem = ShoppingItem(name, amount, priceString.toFloat(), _curImageUrl.value ?: "")
-        insertShoppingItemIntoDb(shoppingItem)
-        setCurImageUrl("")
-        _insertShoppingItemStatus.postValue(Event(Resource.success(shoppingItem)))
-    }
 
     fun searchForImage(imageQuery: String) {
-        if(imageQuery.isEmpty()) {
+        if (imageQuery.isEmpty()) {
             return
         }
-        _images.value = Event(Resource.loading(null))
         viewModelScope.launch {
-            val response = repository.searchForImage(imageQuery)
-            _images.value = Event(response)
+            repository.searchForImage(imageQuery).collect {
+                _images.value = Event.Loading
+                when (it) {
+                    is Resource.Success -> {
+                        _images.value = Event.Success(it.data)
+                    }
+                    is Resource.Error -> Event.Error(it.message)
+                }
+            }
         }
     }
+
+    sealed class Event {
+        data class Success(val image: ImageResponse?) : Event()
+        data class Error(val msg: String?) : Event()
+        object Idle : Event()
+        object Loading : Event()
+    }
+
+    sealed class State {
+        data class Success(val shoppingItem: List<ShoppingItem>) : State()
+        object Idle : State()
+    }
+
 }
+
