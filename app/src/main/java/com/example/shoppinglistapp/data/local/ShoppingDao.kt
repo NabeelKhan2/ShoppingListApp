@@ -13,6 +13,6 @@ interface ShoppingDao {
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
     @Query("SELECT * FROM shopping_item")
-    fun observerAllShoppingItems() : Flow<List<ShoppingItem>>
+    fun observerAllShoppingItems(): Flow<List<ShoppingItem>>
 
 }

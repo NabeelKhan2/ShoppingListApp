@@ -13,6 +13,6 @@ interface Api {
     suspend fun searchForImage(
         @Query("q") searchQuery: String,
         @Query("key") apiKey: String = Constants.API_KEY
-    ) : Response<ImageResponse>
+    ): Response<ImageResponse>
 
 }

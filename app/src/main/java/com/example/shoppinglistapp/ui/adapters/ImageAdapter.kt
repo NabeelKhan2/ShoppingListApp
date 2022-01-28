@@ -1,17 +1,16 @@
 package com.example.shoppinglistapp.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.databinding.ItemImageBinding
 
 class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
-    class ImageViewHolder(val binding: ItemImageBinding): RecyclerView.ViewHolder(binding.root)
+
+    class ImageViewHolder(val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val diffCallback = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -31,7 +30,8 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
-            binding = ItemImageBinding.inflate(LayoutInflater.from(parent.context) , parent , false
+            binding = ItemImageBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
             )
         )
     }

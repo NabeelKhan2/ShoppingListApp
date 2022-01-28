@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.shoppinglistapp.R
 import com.example.shoppinglistapp.databinding.FragmentShoppingBinding
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -14,25 +13,26 @@ import androidx.recyclerview.widget.ItemTouchHelper.LEFT
 import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglistapp.ui.ShoppingViewModel
+import com.example.shoppinglistapp.ui.sharedviewmodel.ShoppingViewModel
 import com.example.shoppinglistapp.ui.adapters.ShoppingItemAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class ShoppingFragment @Inject constructor(
-    val shoppingItemAdapter: ShoppingItemAdapter
-) : Fragment(R.layout.fragment_shopping) {
-    private var _binding : FragmentShoppingBinding? = null
+class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
+    private var _binding: FragmentShoppingBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var shoppingItemAdapter: ShoppingItemAdapter
 
     private val viewModel by viewModels<ShoppingViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentShoppingBinding.bind(view)
+
+        shoppingItemAdapter = ShoppingItemAdapter()
 
         subscribeToObservers()
         setupRecyclerView()
@@ -57,10 +57,10 @@ class ShoppingFragment @Inject constructor(
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val pos = viewHolder.layoutPosition
             val item = shoppingItemAdapter.shoppingItems[pos]
-            viewModel?.deleteShoppingItem(item)
+            viewModel.deleteShoppingItem(item)
             Snackbar.make(requireView(), "Successfully deleted item", Snackbar.LENGTH_LONG).apply {
                 setAction("Undo") {
-                    viewModel?.insertShoppingItemIntoDb(item)
+                    viewModel.insertShoppingItemIntoDb(item)
                 }
                 show()
             }
@@ -71,11 +71,12 @@ class ShoppingFragment @Inject constructor(
 
         lifecycleScope.launchWhenStarted {
             viewModel.insertShoppingItemStatus.collect {
-                when(it){
+                when (it) {
                     is ShoppingViewModel.State.Success -> {
                         shoppingItemAdapter.shoppingItems = it.shoppingItem
                     }
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
         }

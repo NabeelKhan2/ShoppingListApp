@@ -9,9 +9,10 @@ import coil.load
 import com.example.shoppinglistapp.data.local.ShoppingItem
 import com.example.shoppinglistapp.databinding.ItemShoppingBinding
 
-class ShoppingItemAdapter: RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItemViewHolder>() {
+class ShoppingItemAdapter : RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItemViewHolder>() {
 
-    class ShoppingItemViewHolder(val binding: ItemShoppingBinding) : RecyclerView.ViewHolder(binding.root)
+    class ShoppingItemViewHolder(val binding: ItemShoppingBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private val diffCallback = object : DiffUtil.ItemCallback<ShoppingItem>() {
         override fun areItemsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
@@ -30,7 +31,8 @@ class ShoppingItemAdapter: RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItem
         set(value) = differ.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingItemViewHolder {
-        val binding = ItemShoppingBinding.inflate(LayoutInflater.from(parent.context) , parent , false)
+        val binding =
+            ItemShoppingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ShoppingItemViewHolder(binding)
     }
 
@@ -39,7 +41,9 @@ class ShoppingItemAdapter: RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItem
     }
 
     override fun onBindViewHolder(holder: ShoppingItemViewHolder, position: Int) {
+
         val shoppingItem = shoppingItems[position]
+
         holder.binding.apply {
             ivShoppingImage.load(shoppingItem.imageUrl)
             tvName.text = shoppingItem.name
@@ -47,6 +51,7 @@ class ShoppingItemAdapter: RecyclerView.Adapter<ShoppingItemAdapter.ShoppingItem
             tvShoppingItemAmount.text = amountText
             val priceText = "${shoppingItem.price}€"
             tvShoppingItemPrice.text = priceText
+
         }
     }
 }
