@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.ItemTouchHelper.LEFT
 import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shoppinglistapp.ui.sharedviewmodel.ShoppingViewModel
-import com.example.shoppinglistapp.ui.adapters.ShoppingItemAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
+
     private var _binding: FragmentShoppingBinding? = null
     private val binding get() = _binding!!
 
@@ -34,14 +33,14 @@ class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
 
         shoppingItemAdapter = ShoppingItemAdapter()
 
-        subscribeToObservers()
-        setupRecyclerView()
-
         binding.fabAddShoppingItem.setOnClickListener {
             findNavController().navigate(
                 ShoppingFragmentDirections.actionShoppingFragmentToAddShoppingItemFragment()
             )
         }
+
+        subscribeToObservers()
+        setupRecyclerView()
 
     }
 
@@ -80,13 +79,6 @@ class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
                 }
             }
         }
-
-
-//        viewModel?.totalPrice?.observe(viewLifecycleOwner, Observer {
-//            val price = it ?: 0f
-//            val priceText = "Total Price: $price€"
-//            tvShoppingItemPrice.text = priceText
-//        })
     }
 
     private fun setupRecyclerView() {

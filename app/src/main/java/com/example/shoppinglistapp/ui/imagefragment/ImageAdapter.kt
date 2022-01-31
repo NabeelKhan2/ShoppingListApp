@@ -1,4 +1,4 @@
-package com.example.shoppinglistapp.ui.adapters
+package com.example.shoppinglistapp.ui.imagefragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

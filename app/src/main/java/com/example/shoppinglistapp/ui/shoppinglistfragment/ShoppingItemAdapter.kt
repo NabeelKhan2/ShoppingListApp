@@ -1,4 +1,4 @@
-package com.example.shoppinglistapp.ui.adapters
+package com.example.shoppinglistapp.ui.shoppinglistfragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -45,6 +45,7 @@ class ShoppingItemAdapter : RecyclerView.Adapter<ShoppingItemAdapter.ShoppingIte
         val shoppingItem = shoppingItems[position]
 
         holder.binding.apply {
+
             ivShoppingImage.load(shoppingItem.imageUrl)
             tvName.text = shoppingItem.name
             val amountText = "${shoppingItem.amount}x"

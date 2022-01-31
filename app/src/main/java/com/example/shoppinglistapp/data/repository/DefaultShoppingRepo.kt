@@ -26,19 +26,20 @@ class DefaultShoppingRepo @Inject constructor(
         return shoppingDao.observerAllShoppingItems()
     }
 
-    override suspend fun searchForImage(imageQuery: String): Flow<Resource<ImageResponse>> = flow {
-        try {
-            val response = api.searchForImage(imageQuery)
-            val result = response.body()
-            if (response.isSuccessful && result != null) {
-                emit(Resource.Success(result))
-            } else {
-                emit(Resource.Error<ImageResponse>(response.message()))
+    override suspend fun searchForImage(imageQuery: String): Flow<Resource<ImageResponse>> =
+        flow {
+            try {
+                val response = api.searchForImage(imageQuery)
+                val result = response.body()
+                if (response.isSuccessful && result != null) {
+                    emit(Resource.Success(result))
+                } else {
+                    emit(Resource.Error<ImageResponse>(response.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error<ImageResponse>(e.message ?: "An error occurred"))
             }
-        } catch (e: Exception) {
-            emit(Resource.Error<ImageResponse>(e.message ?: "An error occurred"))
         }
-    }
 
 
 }

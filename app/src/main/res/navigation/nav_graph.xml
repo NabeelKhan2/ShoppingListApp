@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_addShoppingItemFragment_to_imagePickFragment"
             app:destination="@id/imagePickFragment" />
+        <action
+            android:id="@+id/action_addShoppingItemFragment_to_shoppingFragment"
+            app:destination="@id/shoppingFragment" />
     </fragment>
     <fragment
         android:id="@+id/imagePickFragment"

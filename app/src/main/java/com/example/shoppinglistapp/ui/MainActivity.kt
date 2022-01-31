@@ -7,13 +7,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-//    @Inject
-//    lateinit var fragmentFactory: ShoppingFragmentFactory
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        supportFragmentManager.fragmentFactory = fragmentFactory
         setContentView(R.layout.activity_main)
     }
 }

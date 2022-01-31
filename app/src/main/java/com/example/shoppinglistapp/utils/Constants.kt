@@ -12,4 +12,7 @@ object Constants {
     const val SEARCH_TIME_DELAY = 300L
     const val GRID_SPAN_COUNT = 4
 
+    const val REQUEST_KEY = "requestKey"
+    const val BUNDLE_KEY = "bundleKey"
+
 }
