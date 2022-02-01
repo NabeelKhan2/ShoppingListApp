@@ -1,6 +1,7 @@
 package com.example.shoppinglistapp.ui.addfragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.setFragmentResultListener
@@ -34,14 +35,15 @@ class AddShoppingItemFragment : Fragment(R.layout.fragment_add_shopping_item) {
             viewModel.insertShoppingItem(
                 binding.etShoppingItemName.text.toString(),
                 binding.etShoppingItemAmount.text.toString(),
-                binding.etShoppingItemPrice.text.toString(),
-                result
+                binding.etShoppingItemPrice.text.toString()
             )
+
+            Log.e("TAG","url is $result")
         }
 
         setFragmentResultListener(Constants.REQUEST_KEY) { _, bundle ->
             result = bundle.getString(Constants.BUNDLE_KEY)
-            viewModel.currentImage(result)
+            viewModel.image.value = result
         }
 
         binding.ivShoppingImage.setOnClickListener {
@@ -57,12 +59,10 @@ class AddShoppingItemFragment : Fragment(R.layout.fragment_add_shopping_item) {
 
         lifecycleScope.launchWhenStarted {
             viewModel.image.collect {
-                when(it){
-                    is AddShoppingItemViewModel.State.Image -> {
-                        binding.ivShoppingImage.load(it.image)
-                    }
-                    else -> {}
+                it?.let {imageUrl ->
+                    if(imageUrl.isNotEmpty()) binding.ivShoppingImage.load(imageUrl)
                 }
+
             }
         }
 

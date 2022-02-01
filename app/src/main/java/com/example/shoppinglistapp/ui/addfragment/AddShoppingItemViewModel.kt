@@ -18,8 +18,7 @@ class AddShoppingItemViewModel @Inject constructor(
     private val repository: ShoppingRepo
 ) : ViewModel() {
 
-    private val _image = MutableStateFlow<State>(State.Idle)
-    val image = _image.asStateFlow()
+    val image = MutableStateFlow<String?>("")
 
     private val eventChannel = Channel<Event>()
     val eventFLow = eventChannel.receiveAsFlow()
@@ -28,15 +27,10 @@ class AddShoppingItemViewModel @Inject constructor(
         repository.insertShoppingItem(shoppingItem)
     }
 
-    fun currentImage(url: String?) {
-        _image.value = State.Image(url)
-    }
-
     fun insertShoppingItem(
         name: String,
         amountString: String,
-        priceString: String,
-        image: String?
+        priceString: String
     ) {
         viewModelScope.launch {
             if (name.isEmpty() || amountString.isEmpty() || priceString.isEmpty()) {
@@ -68,7 +62,7 @@ class AddShoppingItemViewModel @Inject constructor(
                 return@launch
             }
             val shoppingItem =
-                ShoppingItem(name, amount, priceString.toFloat(), image ?: "")
+                ShoppingItem(name, amount, priceString.toFloat(), image.value ?: "")
             insertShoppingItemIntoDb(shoppingItem)
             eventChannel.send(Event.Success(shoppingItem))
         }

@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
         <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/drawable/ic_add.xml" value="0.2203125" />
+        <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/drawable/ic_apple_logo_black.xml" value="0.2203125" />
+        <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.2203125" />
         <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/drawable/ic_image.xml" value="0.2203125" />
         <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/abc/AndroidStudioProjects/ShoppingListApp/app/src/main/res/layout/fragment_add_shopping_item.xml" value="0.20416666666666666" />

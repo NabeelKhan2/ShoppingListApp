@@ -12,6 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_12sdp"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
         android:hint="Search for Images..."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,6 +23,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
+            android:background="#C1BFBF"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -6,31 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".ui.addfragment.AddShoppingItemFragment">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <!--    <com.google.android.material.imageview.ShapeableImageView-->
+    <!--        android:id="@+id/ivShoppingImage"-->
+    <!--        android:layout_width="@dimen/_100sdp"-->
+    <!--        android:layout_height="@dimen/_100sdp"-->
+    <!--        android:layout_margin="@dimen/_12sdp"-->
+    <!--        android:src="@drawable/ic_image"-->
+    <!--        android:scaleType="fitCenter"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        tools:ignore="ContentDescription" />-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivShoppingImage"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_margin="@dimen/_12sdp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_100sdp"
         android:src="@drawable/ic_image"
-        android:scaleType="fitCenter"
+        app:civ_border_color="#FF000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Name"
-        app:layout_constraintBottom_toBottomOf="@+id/ivShoppingImage"
+        android:layout_margin="@dimen/_15sdp"
+        android:hint="@string/name"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivShoppingImage"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivShoppingImage">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etShoppingItemName"
             android:layout_width="match_parent"
+            android:background="#C1BFBF"
             android:layout_height="match_parent"
             android:inputType="textAutoComplete" />
 
@@ -40,18 +55,22 @@
         android:id="@+id/textInputLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
+        android:layout_margin="@dimen/_15sdp"
         android:hint="Amount"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
         app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivShoppingImage">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etShoppingItemAmount"
             android:layout_width="match_parent"
+            android:background="#C1BFBF"
             android:layout_height="match_parent"
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,16 +78,20 @@
         android:id="@+id/textInputLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
+        android:layout_margin="@dimen/_15sdp"
         android:hint="Price per Item"
+        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+        app:boxCornerRadiusTopStart="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/ivShoppingImage">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etShoppingItemPrice"
             android:layout_width="match_parent"
+            android:background="#C1BFBF"
             android:layout_height="match_parent"
             android:inputType="numberDecimal" />
 
@@ -77,12 +100,15 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddShoppingItem"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:text="Add"
+        android:textSize="@dimen/_15sdp"
+        app:cornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
