@@ -8,3 +8,4 @@ import com.google.android.material.snackbar.Snackbar
 fun Context.toast(content: Any = "", length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, content.toString(), length).show()
 }
+

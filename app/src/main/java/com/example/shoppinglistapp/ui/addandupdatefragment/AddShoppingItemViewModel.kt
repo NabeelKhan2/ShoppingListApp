@@ -1,4 +1,4 @@
-package com.example.shoppinglistapp.ui.addfragment
+package com.example.shoppinglistapp.ui.addandupdatefragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +8,6 @@ import com.example.shoppinglistapp.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +24,10 @@ class AddShoppingItemViewModel @Inject constructor(
 
     private fun insertShoppingItemIntoDb(shoppingItem: ShoppingItem) = viewModelScope.launch {
         repository.insertShoppingItem(shoppingItem)
+    }
+
+    fun updateShoppingItem(shoppingItem: ShoppingItem) = viewModelScope.launch {
+        repository.updateShoppingItem(shoppingItem)
     }
 
     fun insertShoppingItem(
@@ -55,28 +58,26 @@ class AddShoppingItemViewModel @Inject constructor(
                 )
                 return@launch
             }
+
             val amount = try {
                 amountString.toInt()
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
                 eventChannel.send(Event.Error("Please enter a valid amount"))
                 return@launch
             }
+
             val shoppingItem =
                 ShoppingItem(name, amount, priceString.toFloat(), image.value ?: "")
+
             insertShoppingItemIntoDb(shoppingItem)
             eventChannel.send(Event.Success(shoppingItem))
         }
     }
 
-
     sealed class Event {
         data class Success(val image: ShoppingItem) : Event()
         data class Error(val msg: String?) : Event()
-    }
-
-    sealed class State {
-        data class Image(val image: String?) : State()
-        object Idle : State()
     }
 
 }

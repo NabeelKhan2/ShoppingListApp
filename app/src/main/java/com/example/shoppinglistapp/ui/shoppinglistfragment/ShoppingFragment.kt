@@ -1,11 +1,9 @@
 package com.example.shoppinglistapp.ui.shoppinglistfragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.shoppinglistapp.R
-import com.example.shoppinglistapp.databinding.FragmentShoppingBinding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,6 +11,8 @@ import androidx.recyclerview.widget.ItemTouchHelper.LEFT
 import androidx.recyclerview.widget.ItemTouchHelper.RIGHT
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shoppinglistapp.R
+import com.example.shoppinglistapp.databinding.FragmentShoppingBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -24,13 +24,11 @@ class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
     private val binding get() = _binding!!
 
     lateinit var shoppingItemAdapter: ShoppingItemAdapter
-
     private val viewModel by viewModels<ShoppingViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentShoppingBinding.bind(view)
-
         shoppingItemAdapter = ShoppingItemAdapter()
 
         binding.fabAddShoppingItem.setOnClickListener {
@@ -38,7 +36,6 @@ class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
                 ShoppingFragmentDirections.actionShoppingFragmentToAddShoppingItemFragment()
             )
         }
-
         subscribeToObservers()
         setupRecyclerView()
 
@@ -69,10 +66,10 @@ class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
     private fun subscribeToObservers() {
 
         lifecycleScope.launchWhenStarted {
-            viewModel.insertShoppingItemStatus.collect {
-                when (it) {
+            viewModel.insertShoppingItemStatus.collect { state ->
+                when (state) {
                     is ShoppingViewModel.State.Success -> {
-                        shoppingItemAdapter.shoppingItems = it.shoppingItem
+                        shoppingItemAdapter.shoppingItems = state.shoppingItem
                     }
                     else -> {
                     }
@@ -89,9 +86,8 @@ class ShoppingFragment : Fragment(R.layout.fragment_shopping) {
         }
     }
 
-
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

@@ -5,10 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.shoppinglistapp.data.local.ShoppingItem
 import com.example.shoppinglistapp.data.repository.ShoppingRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @HiltViewModel
 class ShoppingViewModel @Inject constructor(
@@ -43,7 +44,5 @@ class ShoppingViewModel @Inject constructor(
         data class Success(val shoppingItem: List<ShoppingItem>) : State()
         object Idle : State()
     }
-
-
 }
 

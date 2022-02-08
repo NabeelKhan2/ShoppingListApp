@@ -12,20 +12,55 @@
         tools:layout="@layout/fragment_shopping">
         <action
             android:id="@+id/action_shoppingFragment_to_addShoppingItemFragment"
-            app:destination="@id/addShoppingItemFragment" />
+            app:destination="@id/addShoppingItemFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_shoppingFragment_to_updateShoppingItemFragment"
+            app:destination="@id/updateShoppingItemFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addShoppingItemFragment"
-        android:name="com.example.shoppinglistapp.ui.addfragment.AddShoppingItemFragment"
+        android:name="com.example.shoppinglistapp.ui.addandupdatefragment.AddFragment"
         android:label="AddShoppingItemFragment"
         tools:layout="@layout/fragment_add_shopping_item">
         <action
             android:id="@+id/action_addShoppingItemFragment_to_imagePickFragment"
-            app:destination="@id/imagePickFragment" />
+            app:destination="@id/imagePickFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
         <action
             android:id="@+id/action_addShoppingItemFragment_to_shoppingFragment"
-            app:destination="@id/shoppingFragment" />
+            app:destination="@id/shoppingFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
     </fragment>
+    <fragment
+        android:id="@+id/updateShoppingItemFragment"
+        android:name="com.example.shoppinglistapp.ui.addandupdatefragment.UpdateFragment"
+        android:label="AddShoppingItemFragment"
+        tools:layout="@layout/fragment_add_shopping_item">
+        <action
+            android:id="@+id/action_addShoppingItemFragment_to_imagePickFragment"
+            app:destination="@id/imagePickFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_addShoppingItemFragment_to_shoppingFragment"
+            app:destination="@id/shoppingFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            />
+        <argument
+            android:name="shoppingItem"
+            app:argType="com.example.shoppinglistapp.data.local.ShoppingItem"
+            app:nullable="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/imagePickFragment"
         android:name="com.example.shoppinglistapp.ui.imagefragment.ImagePickFragment"

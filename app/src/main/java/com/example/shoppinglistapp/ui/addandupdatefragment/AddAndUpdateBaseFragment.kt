@@ -1,9 +1,8 @@
-package com.example.shoppinglistapp.ui.addfragment
+package com.example.shoppinglistapp.ui.addandupdatefragment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,59 +16,42 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
-class AddShoppingItemFragment : Fragment(R.layout.fragment_add_shopping_item) {
+abstract class AddAndUpdateBaseFragment : Fragment(R.layout.fragment_add_shopping_item) {
 
     private var _binding: FragmentAddShoppingItemBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     private var result: String? = null
 
-    private val viewModel by viewModels<AddShoppingItemViewModel>()
+    val viewModel by viewModels<AddShoppingItemViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentAddShoppingItemBinding.bind(view)
 
-        binding.btnAddShoppingItem.setOnClickListener {
-            viewModel.insertShoppingItem(
-                binding.etShoppingItemName.text.toString(),
-                binding.etShoppingItemAmount.text.toString(),
-                binding.etShoppingItemPrice.text.toString()
-            )
-
-            Log.e("TAG","url is $result")
-        }
-
         setFragmentResultListener(Constants.REQUEST_KEY) { _, bundle ->
             result = bundle.getString(Constants.BUNDLE_KEY)
             viewModel.image.value = result
         }
 
-        binding.ivShoppingImage.setOnClickListener {
-            findNavController().navigate(
-                AddShoppingItemFragmentDirections.actionAddShoppingItemFragmentToImagePickFragment()
-            )
-        }
-
         subscribeToObservers()
     }
+
 
     private fun subscribeToObservers() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.image.collect {
-                it?.let {imageUrl ->
-                    if(imageUrl.isNotEmpty()) binding.ivShoppingImage.load(imageUrl)
+                it?.let { imageUrl ->
+                    if (imageUrl.isNotEmpty()) binding.ivShoppingImage.load(imageUrl)
                 }
-
             }
         }
 
         lifecycleScope.launchWhenStarted {
-
-            viewModel.eventFLow.collect {
-                when (it) {
+            viewModel.eventFLow.collect { event ->
+                when (event) {
                     is AddShoppingItemViewModel.Event.Success -> {
 
                         snackBar("Added Shopping Item")
@@ -78,7 +60,7 @@ class AddShoppingItemFragment : Fragment(R.layout.fragment_add_shopping_item) {
                     }
 
                     is AddShoppingItemViewModel.Event.Error -> {
-                        snackBar(it.msg ?: "An unknown error occurred")
+                        snackBar(event.msg ?: "An unknown error occurred")
                     }
                 }
             }
@@ -86,9 +68,10 @@ class AddShoppingItemFragment : Fragment(R.layout.fragment_add_shopping_item) {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
+
 
 }

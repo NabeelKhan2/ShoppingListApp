@@ -4,18 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addfragment.AddShoppingItemFragment">
-
-    <!--    <com.google.android.material.imageview.ShapeableImageView-->
-    <!--        android:id="@+id/ivShoppingImage"-->
-    <!--        android:layout_width="@dimen/_100sdp"-->
-    <!--        android:layout_height="@dimen/_100sdp"-->
-    <!--        android:layout_margin="@dimen/_12sdp"-->
-    <!--        android:src="@drawable/ic_image"-->
-    <!--        android:scaleType="fitCenter"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        tools:ignore="ContentDescription" />-->
+    tools:context=".ui.addandupdatefragment.AddAndUpdateBaseFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivShoppingImage"
@@ -56,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:hint="Amount"
+        android:hint="@string/amount"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopEnd="@dimen/_10sdp"
@@ -79,7 +68,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:hint="Price per Item"
+        android:hint="@string/item_price"
         app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
         app:boxCornerRadiusBottomStart="@dimen/_10sdp"
         app:boxCornerRadiusTopStart="@dimen/_10sdp"
@@ -104,7 +93,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_20sdp"
-        android:text="Add"
+        android:text="@string/add"
         android:textSize="@dimen/_15sdp"
         app:cornerRadius="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"

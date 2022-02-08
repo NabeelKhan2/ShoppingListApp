@@ -9,7 +9,10 @@ interface ShoppingRepo {
 
     suspend fun insertShoppingItem(shoppingItem: ShoppingItem)
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
+    suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
     fun observeAllShoppingItems(): Flow<List<ShoppingItem>>
-    suspend fun searchForImage(imageQuery: String): Flow<Resource<ImageResponse>>
+
+
+    fun searchForImage(imageQuery: String): Flow<Resource<ImageResponse>>
 
 }

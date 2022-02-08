@@ -22,11 +22,15 @@ class DefaultShoppingRepo @Inject constructor(
         shoppingDao.deleteShoppingItem(shoppingItem)
     }
 
+    override suspend fun updateShoppingItem(shoppingItem: ShoppingItem) {
+        shoppingDao.updateShoppingItem(shoppingItem)
+    }
+
     override fun observeAllShoppingItems(): Flow<List<ShoppingItem>> {
         return shoppingDao.observerAllShoppingItems()
     }
 
-    override suspend fun searchForImage(imageQuery: String): Flow<Resource<ImageResponse>> =
+    override fun searchForImage(imageQuery: String): Flow<Resource<ImageResponse>> =
         flow {
             try {
                 val response = api.searchForImage(imageQuery)

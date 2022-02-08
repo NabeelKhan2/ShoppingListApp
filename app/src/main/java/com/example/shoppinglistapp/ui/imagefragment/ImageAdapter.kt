@@ -1,5 +1,4 @@
 package com.example.shoppinglistapp.ui.imagefragment
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -7,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.shoppinglistapp.databinding.ItemImageBinding
+import com.example.shoppinglistapp.utils.Constants
 
 class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
@@ -47,9 +47,9 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
         holder.itemView.apply {
 
             holder.binding.ivShoppingImage.load(url)
-
             setOnClickListener {
                 onItemClickListener?.let { click ->
+                    Constants.IMAGE_URL_UPDATION = url
                     click(url)
                 }
             }
@@ -59,4 +59,5 @@ class ImageAdapter : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     override fun getItemCount(): Int {
         return images.size
     }
+
 }

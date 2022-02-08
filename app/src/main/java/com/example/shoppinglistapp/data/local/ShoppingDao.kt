@@ -9,6 +9,9 @@ interface ShoppingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertShoppingItem(shoppingItem: ShoppingItem)
 
+    @Update
+    suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
+
     @Delete
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
