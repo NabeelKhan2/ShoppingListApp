@@ -13,34 +13,13 @@
         android:layout_height="wrap_content"
         app:iconifiedByDefault="false"
         android:layout_margin="@dimen/_12sdp"
-        app:queryHint="Start Search"
+        app:queryHint="@string/search_for_images"
         android:backgroundTint="@color/white"
         android:background="@drawable/searchview_background"
         android:queryBackground="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/textInputLayout4"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="@dimen/_12sdp"-->
-<!--        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"-->
-<!--        app:boxCornerRadiusBottomStart="@dimen/_10sdp"-->
-<!--        app:boxCornerRadiusTopEnd="@dimen/_10sdp"-->
-<!--        android:hint="@string/search_for_images"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/etSearch"-->
-<!--            android:background="#C1BFBF"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvImages"

@@ -54,18 +54,6 @@ class ImagePickFragment : Fragment(R.layout.fragment_image_pick) {
         _binding = FragmentImagePickBinding.bind(view)
         imageAdapter = ImageAdapter()
 
-//        var job: Job? = null
-//        binding.etSearch.doOnTextChanged { editable, _, _, _ ->
-//            job?.cancel()
-//            job = lifecycleScope.launch {
-//                delay(SEARCH_TIME_DELAY)
-//                editable?.let {
-//                    if (editable.toString().isNotEmpty()) {
-//                        viewModel.searchForImage(editable.toString())
-//                    }
-//                }
-//            }
-//        }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
